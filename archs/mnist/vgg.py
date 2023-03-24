@@ -26,7 +26,7 @@ class vgg16(nn.Module):
         self.dense3 = nn.Linear(4096, num_classes)
 
     def forward(self,x):
-        x=self.features(x)
+        x=self.features(x.unsqueeze(1))
         x=x.view(-1,512*7*7)
         x=self.dense3(self.drop2(F.relu(self.dense2(self.drop1(F.relu(self.dense1(x)))))))
         return x
